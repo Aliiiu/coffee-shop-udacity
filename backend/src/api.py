@@ -16,11 +16,6 @@ app = Flask(__name__)
 setup_db(app)
 CORS(app)
 
-AUTH0_DOMAIN = 'dev-iivp8fq8.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'coffee'
-
-
 # class AuthError(Exception):
 #     def __init__(self, error, status_code):
 #         self.error = error
@@ -141,12 +136,12 @@ db_drop_and_create_all()
 @app.route('/drinks')
 def fetch_drink():
     drink_raw = Drink.query.order_by(Drink.id).all()
-    drinks = [drink.short() for drink in drink_raw]
-    print(drinks)
+    # drinks = [drink.short() for drink in drink_raw]
+    # print(drinks)
 
     return jsonify({
         'success': True,
-        'drinks': drinks
+        'drinks': [drink.short() for drink in drink_raw]
     })
 
 
